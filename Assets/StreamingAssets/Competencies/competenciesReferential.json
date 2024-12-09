@@ -1182,7 +1182,80 @@
 						}
 					],
 					"rule": "exitInLib >= 1 or exitInScript >= 1"
+				},
+				{
+					"key": "SPY_VarUsage",
+					"parentKey": "",
+					"name": "[fr]F36 Utilisation des variables[/fr][en]F36 Variable usage[/en]",
+					"description": "[fr]Donner au joueur la possibilité d'utiliser des variables pour stocker et manipuler des données temporaires durant la résolution de problèmes.[/fr][en]Allow the player to use variables to store and manipulate temporary data during problem-solving.[/en]",
+					"filters": [
+						{
+							"label": "variableInLib",
+							"tag": "blockLimit",
+							"constraints": [
+								{
+									"attribute": "blockType",
+									"constraint": "=",
+									"value": "Variable"
+								},
+								{
+									"attribute": "limit",
+									"constraint": "<>",
+									"value": "0"
+								}
+							]
+						},
+						{
+							"label": "variableInScript",
+							"tag": "action",
+							"constraints": [
+								{
+									"attribute": "blockType",
+									"constraint": "=",
+									"value": "UseVariable"
+								}
+							]
+						}
+					],
+					"rule": "variableInLib >= 1 or variableInScript >= 1"
+				},
+				{
+					"key": "SPY_Functions",
+					"parentKey": "",
+					"name": "[fr]F37 Fonctions : définir et appeler[/fr][en]F37 Functions: define and call[/en]",
+					"description": "[fr]Donner au joueur la possibilité de définir une fonction et de l'appeler. Être capable de structurer une solution en regroupant des actions dans une fonction et de réutiliser cette fonction dans plusieurs endroits du programme.[/fr][en]Give the player the ability to define a function and call it. Be able to structure a solution by grouping actions into a function and reusing that function in multiple parts of the program.[/en]",
+					"filters": [
+						{
+							"label": "FunctionInLib",
+							"tag": "blockLimit",
+							"constraints": [
+								{
+									"attribute": "blockType",
+									"constraint": "=",
+									"value": "Function"
+								},
+								{
+									"attribute": "limit",
+									"constraint": "<>",
+									"value": "0"
+								}
+							]
+						},
+						{
+							"label": "FunctionInScript",
+							"tag": "action",
+							"constraints": [
+								{
+									"attribute": "blockType",
+									"constraint": "=",
+									"value": "UseFunction"
+								}
+							]
+						}
+					],
+					"rule": "FunctionInLib >= 1 and FunctionInScript >= 1"
 				}
+				
 			]
 		},
 		{

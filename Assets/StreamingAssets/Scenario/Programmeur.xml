@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<scenario name="[fr]Programmeur[/fr][en]Programmer[/en]" 
+            desc="[fr]Dans ce scénario, tu apprendras à utiliser des concepts avancés comme les variables et les fonctions pour résoudre des défis plus complexes.[/fr][en]In this scenario, you'll learn to use advanced concepts like variables and functions to solve more complex challenges.[/en]">
+
+    <level src="Levels/Programmeur/Niveau01.xml" name="[fr]Mission01 - Functions[/fr][en]Mission01 - Functions[/en]" />
+    <level src="Levels/Programmeur/Niveau02.xml" name="[fr]Mission02 - Variables[/fr][en]Mission02 - Variables[/en]" />
+
+</scenario>
