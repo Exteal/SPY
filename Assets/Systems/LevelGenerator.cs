@@ -7,6 +7,7 @@ using TMPro;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System;
+using UnityEditor;
 
 /// <summary>
 /// Read XML file and load level
@@ -70,6 +71,22 @@ public class LevelGenerator : FSystem {
 		}
 	}
 
+	private String stringColorToMaterialName(string color)
+	{
+		switch (color)
+		{
+			case "red":
+				return "Red";
+				
+
+			case "green":
+				return "Green";
+			
+			default:
+				return "Default";
+
+		}
+	}
 	// Read xml document and create all game objects
 	public void XmlToLevel(XmlDocument doc)
 	{
@@ -134,6 +151,13 @@ public class LevelGenerator : FSystem {
 					createDoor(int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value),
 					(Direction.Dir)int.Parse(child.Attributes.GetNamedItem("direction").Value), int.Parse(child.Attributes.GetNamedItem("slotId").Value));
 					break;
+				case "colored_door":
+					createColoredDoor(int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value),
+                    (Direction.Dir)int.Parse(child.Attributes.GetNamedItem("direction").Value), child.Attributes.GetNamedItem("color").Value);
+					break;
+				case "colored_key":
+                    createKey(int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value), child.Attributes.GetNamedItem("color").Value);
+                    break;
 				case "robot":
 				case "guard":
 				case "player": // backward compatibility
@@ -332,7 +356,26 @@ public class LevelGenerator : FSystem {
 		GameObjectManager.bind(door);
 	}
 
-	private void createDecoration(string name, int gridX, int gridY, Direction.Dir orientation)
+	private void createColoredDoor(int gridX, int gridY, Direction.Dir orientation, string color_name)
+	{
+        GameObject door = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/Colored Door") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), LevelGO.transform);
+		
+		Material m = Resources.Load<Material>("Materials/"+ stringColorToMaterialName(color_name));
+		
+		var li = new List<Material>();
+        li.Add(m);
+
+		door.transform.GetChild(0).GetComponent<MeshRenderer>().SetMaterials(li);
+
+
+        door.GetComponentInChildren<Position>().x = gridX;
+        door.GetComponentInChildren<Position>().y = gridY;
+        door.GetComponentInChildren<Direction>().direction = orientation;
+        GameObjectManager.bind(door);
+    }
+
+
+    private void createDecoration(string name, int gridX, int gridY, Direction.Dir orientation)
 	{
 		GameObject decoration = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/"+name) as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), LevelGO.transform);
 
@@ -385,7 +428,22 @@ public class LevelGenerator : FSystem {
 		GameObjectManager.bind(coin);
 	}
 
-	private void createCell(int gridX, int gridY){
+	private void createKey(int gridX, int gridY, string color_name)
+    {
+        GameObject key = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/Key") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(90, 0, 0), LevelGO.transform);
+
+        Material m = Resources.Load<Material>("Materials/" + stringColorToMaterialName(color_name));
+
+        var li = new List<Material>();
+        li.Add(m);
+
+        key.GetComponent<MeshRenderer>().SetMaterials(li);
+
+        key.GetComponent<Position>().x = gridX;
+        key.GetComponent<Position>().y = gridY;
+        GameObjectManager.bind(key);
+    }
+    private void createCell(int gridX, int gridY){
 		GameObject cell = GameObject.Instantiate<GameObject>(Resources.Load ("Prefabs/Cell") as GameObject, LevelGO.transform.position + new Vector3(gridY*3,0,gridX*3), Quaternion.Euler(0,0,0), LevelGO.transform);
 		GameObjectManager.bind(cell);
 	}

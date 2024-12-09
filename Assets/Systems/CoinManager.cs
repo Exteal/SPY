@@ -2,6 +2,7 @@
 using FYFY;
 using System.Collections;
 using FYFY_plugins.TriggerManager;
+using System.Linq;
 
 /// <summary>
 /// Manage collision between player agents and Coins
@@ -33,6 +34,9 @@ public class CoinManager : FSystem {
 			foreach(GameObject target in trigger.Targets){
 				//Check if the player collide with a coin
                 if(target.CompareTag("Coin")){
+
+                    Debug.Log("[Coin] Coin");
+
                     gameData.totalCoin++;
                     target.GetComponent<AudioSource>().Play();
 					target.GetComponent<Collider>().enabled = false;

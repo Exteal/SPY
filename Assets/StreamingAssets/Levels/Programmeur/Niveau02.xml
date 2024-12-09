@@ -35,7 +35,16 @@
   </blockLimits>
   <coin posY="1" posX="4" />
   <robot inputLine="Erty" posY="1" posX="1" direction="0" />
-  <script outputLine="Erty" editMode="0">
+  
+  <colored_key posX ="2" posY="1" color="red"/>
+
+	
+  <colored_door posX="3" posY="1" direction="2" color="red"/>
+  <colored_door posX="3" posY="3" direction="3" color="green"/>
+  <colored_door posX="5" posY="5" direction="4" color="default"/>
+
+
+	<script outputLine="Erty" editMode="0">
   </script>
   <score twoStars="0" threeStars="1500"/>
 </level>

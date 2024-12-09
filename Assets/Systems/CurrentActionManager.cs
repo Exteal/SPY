@@ -181,7 +181,18 @@ public class CurrentActionManager : FSystem
 				// always return firstchild of this ForeverControl
 				return rec_getFirstActionOf(action.GetComponent<ForeverControl>().firstChild, agent);
 			}
-		}
+
+			//check if action is a FunctionControl
+			else if(action.GetComponent<FunctionControl>())
+			{
+                FunctionControl funCont = action.GetComponent<FunctionControl>();
+
+				string funName = funCont.name;
+
+				//return rec_getFirstActionOf(funCont.firstChild, agent);
+				return null;
+            }
+        }
 		return null;
 	}
 
