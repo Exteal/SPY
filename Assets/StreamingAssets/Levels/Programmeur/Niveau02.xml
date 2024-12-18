@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <level>
   <map>
-    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="2" /><cell value="0" /><cell value="0" /><cell value="3" /></line>
-    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /> </line>
+    <line><cell value="1" /><cell value="2" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="3" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
   </map>
   <dialogs>
     <dialog text="[fr]Crée une variable nommée 'couleur' et ....[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
@@ -32,18 +32,17 @@
     <blockLimit blockType="FieldGate" limit="0" />
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
+	<blockLimit blockType="OpenColored" limit="2"/> 
   </blockLimits>
-  <coin posY="1" posX="4" />
+	
+  
   <robot inputLine="Erty" posY="1" posX="1" direction="0" />
   
-  <colored_key posX ="2" posY="1" color="red"/>
+  <colored_key posX ="2" posY="1" color="blue"/>
 
-	
-  <colored_door posX="3" posY="1" direction="2" color="red"/>
-  <colored_door posX="3" posY="3" direction="3" color="green"/>
-  <colored_door posX="5" posY="5" direction="4" color="default"/>
-
-
+  <colored_door posX="3" posY="1" direction="2" color="blue"/>
+  <colored_door posX="4" posY="1" direction="2" color="red"/>
+ 
 	<script outputLine="Erty" editMode="0">
   </script>
   <score twoStars="0" threeStars="1500"/>

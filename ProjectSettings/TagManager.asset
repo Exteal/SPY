@@ -21,6 +21,8 @@ TagManager:
   - ScriptEditorCanvas
   - ConditionNotif
   - Key
+  - ColoredDoor
+  - ColoredDoorInner
   layers:
   - Default
   - TransparentFX

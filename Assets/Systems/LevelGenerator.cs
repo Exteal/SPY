@@ -8,6 +8,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System;
 using UnityEditor;
+using System.Drawing;
 
 /// <summary>
 /// Read XML file and load level
@@ -71,7 +72,28 @@ public class LevelGenerator : FSystem {
 		}
 	}
 
-	private String stringColorToMaterialName(string color)
+
+	private Colored stringColorToColored(string color)
+	{
+        switch (color)
+        {
+            case "red":
+                return Colored.Red;
+
+
+            case "green":
+                return Colored.Green;
+
+			case "blue":
+				return Colored.Blue;
+
+            default:
+                return Colored.RobotDefault;
+
+        }
+    }
+
+    private String stringColorToMaterialName(string color)
 	{
 		switch (color)
 		{
@@ -359,19 +381,27 @@ public class LevelGenerator : FSystem {
 	private void createColoredDoor(int gridX, int gridY, Direction.Dir orientation, string color_name)
 	{
         GameObject door = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/Colored Door") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), LevelGO.transform);
-		
-		Material m = Resources.Load<Material>("Materials/"+ stringColorToMaterialName(color_name));
-		
-		var li = new List<Material>();
-        li.Add(m);
 
-		door.transform.GetChild(0).GetComponent<MeshRenderer>().SetMaterials(li);
 
+		
+
+        //Material m = Resources.Load<Material>("Materials/"+ stringColorToMaterialName(color_name));
+
+        //var li = new List<Material>();
+        //li.Add(m);
+
+
+
+
+        //door.transform.GetChild(0).GetComponent<MeshRenderer>().SetMaterials(li);
 
         door.GetComponentInChildren<Position>().x = gridX;
         door.GetComponentInChildren<Position>().y = gridY;
         door.GetComponentInChildren<Direction>().direction = orientation;
         GameObjectManager.bind(door);
+
+        GameObjectManager.addComponent<ColorShifter>(door, new { color = stringColorToColored(color_name) });
+        GameObjectManager.addComponent<ColorShifted>(door);
     }
 
 
@@ -432,16 +462,21 @@ public class LevelGenerator : FSystem {
     {
         GameObject key = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/Key") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(90, 0, 0), LevelGO.transform);
 
-        Material m = Resources.Load<Material>("Materials/" + stringColorToMaterialName(color_name));
+        //Material m = Resources.Load<Material>("Materials/" + stringColorToMaterialName(color_name));
 
-        var li = new List<Material>();
-        li.Add(m);
+        //var li = new List<Material>();
+        //li.Add(m);
 
-        key.GetComponent<MeshRenderer>().SetMaterials(li);
+        
+
+        //key.GetComponent<MeshRenderer>().SetMaterials(li);
 
         key.GetComponent<Position>().x = gridX;
         key.GetComponent<Position>().y = gridY;
         GameObjectManager.bind(key);
+
+        GameObjectManager.addComponent<ColorShifter>(key, new { color = stringColorToColored(color_name) });
+        GameObjectManager.addComponent<ColorShifted>(key);
     }
     private void createCell(int gridX, int gridY){
 		GameObject cell = GameObject.Instantiate<GameObject>(Resources.Load ("Prefabs/Cell") as GameObject, LevelGO.transform.position + new Vector3(gridY*3,0,gridX*3), Quaternion.Euler(0,0,0), LevelGO.transform);
@@ -477,8 +512,13 @@ public class LevelGenerator : FSystem {
 	private GameObject getLibraryItemByName(string itemName)
 	{
 		foreach (GameObject item in f_draggableElement)
-			if (item.name == itemName)
-				return item;
+		{
+            if (item.name == itemName)
+            {
+                return item;
+            }
+        }
+            
 		return null;
 	}
 
@@ -487,8 +527,8 @@ public class LevelGenerator : FSystem {
 		foreach (XmlNode limitNode in limitsNode.ChildNodes)
 		{
 			actionName = limitNode.Attributes.GetNamedItem("blockType").Value;
-			// check if a GameObject exists with the same name
-			if (getLibraryItemByName(actionName) && !gameData.actionBlockLimit.ContainsKey(actionName)){
+            // check if a GameObject exists with the same name
+            if (getLibraryItemByName(actionName) && !gameData.actionBlockLimit.ContainsKey(actionName)){
 				gameData.actionBlockLimit[actionName] = int.Parse(limitNode.Attributes.GetNamedItem("limit").Value);
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FYFY;
+using UnityEngine.Playables;
 
 /// <summary>
 /// This system executes new currentActions
@@ -8,12 +9,21 @@ public class CurrentActionExecutor : FSystem {
 	private Family f_wall = FamilyManager.getFamily(new AllOfComponents(typeof(Position)), new AnyOfTags("Wall", "Door"), new AnyOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
 	private Family f_activableConsole = FamilyManager.getFamily(new AllOfComponents(typeof(Activable),typeof(Position),typeof(AudioSource)));
     private Family f_newCurrentAction = FamilyManager.getFamily(new AllOfComponents(typeof(CurrentAction), typeof(BasicAction)));
-	private Family f_agent = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef), typeof(Position)));
+
+    private GameData gameData;
+
+    private Family f_agent = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef), typeof(Position)));
+	private Family f_coloredDoors = FamilyManager.getFamily(new AnyOfTags("ColoredDoor"));
 
 	protected override void onStart()
 	{
 		f_newCurrentAction.addEntryCallback(onNewCurrentAction);
-		Pause = true;
+
+        GameObject go = GameObject.Find("GameData");
+        if (go != null)
+            gameData = go.GetComponent<GameData>();
+
+        Pause = true;
 	}
 
 	protected override void onProcess(int familiesUpdateCount)
@@ -84,8 +94,8 @@ public class CurrentActionExecutor : FSystem {
 	private void onNewCurrentAction(GameObject currentAction) {
 		Pause = false; // activates onProcess to identify inactive robots
 		
-		CurrentAction ca = currentAction.GetComponent<CurrentAction>();	
-
+		CurrentAction ca = currentAction.GetComponent<CurrentAction>();
+		
 		// process action depending on action type
 		switch (currentAction.GetComponent<BasicAction>().actionType){
 			case BasicAction.ActionType.Forward:
@@ -116,6 +126,32 @@ public class CurrentActionExecutor : FSystem {
 				}
 				ca.agent.GetComponent<Animator>().SetTrigger("Action");
 				break;
+			case BasicAction.ActionType.OpenColored:
+                Debug.Log("[Action Exec] opencolored : ");
+
+                Position agentP = ca.agent.GetComponent<Position>();
+
+                foreach (GameObject go in f_coloredDoors) {
+					var door = go.transform.Find("Door");
+
+                    if (door != null && door.gameObject.activeInHierarchy)
+					{
+						Debug.Log("[Foreach Colored] : Opening Door = " + go.transform.Find("Door").gameObject);
+						Debug.Log(" Pos : " + go.GetComponentInChildren<Position>().x + " " + go.GetComponentInChildren<Position>().y);
+						Debug.Log("Colors : " + go.GetComponent<ColorShifter>().color + " " +  ca.agent.GetComponent<ColorShifter>().color);
+                        if (isInFront(agentP, go.GetComponentInChildren<Position>()) && go.GetComponent<ColorShifter>().color == ca.agent.GetComponent<ColorShifter>().color)
+                        {
+                            Debug.Log("[Foreach Colored] : Opening Door = " + go.transform.Find("Door").gameObject + "Pos : " + go.GetComponentInChildren<Position>().x + " " + go.GetComponentInChildren<Position>().y);
+
+                            go.GetComponent<AudioSource>().Play();
+                            go.GetComponent<Animator>().SetTrigger("Open");
+                            go.GetComponent<Animator>().speed = gameData.gameSpeed_current;
+
+                        }
+                    }
+                    
+                }
+				break;	
 		}
 		ca.StopAllCoroutines();
 		if (ca.gameObject.activeInHierarchy)
@@ -125,6 +161,14 @@ public class CurrentActionExecutor : FSystem {
 			GameObjectManager.addComponent<Moved>(ca.agent);
 	}
 
+	private bool isInFront(Position agentPos, Position doorPos)
+	{
+		return doorPos.x - 1 == agentPos.x && doorPos.y == agentPos.y
+			|| doorPos.x + 1 == agentPos.x && doorPos.y == agentPos.y
+			|| doorPos.x == agentPos.x && doorPos.y - 1 == agentPos.y
+			|| doorPos.x == agentPos.x && doorPos.y + 1 == agentPos.y;
+
+    }
 	private void ApplyForward(GameObject go){
 		Position pos = go.GetComponent<Position>();
 		switch (go.GetComponent<Direction>().direction){

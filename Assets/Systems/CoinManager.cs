@@ -35,8 +35,6 @@ public class CoinManager : FSystem {
 				//Check if the player collide with a coin
                 if(target.CompareTag("Coin")){
 
-                    Debug.Log("[Coin] Coin");
-
                     gameData.totalCoin++;
                     target.GetComponent<AudioSource>().Play();
 					target.GetComponent<Collider>().enabled = false;

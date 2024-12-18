@@ -42,16 +42,13 @@ public class KeyManager : FSystem
             {
                 if (target.CompareTag("Key"))
                 {
+                    
+                    ColorShifter keyColor = target.GetComponent<ColorShifter>();
 
-                    if (target.CompareTag("Key"))
-                    {
-                        SkinnedMeshRenderer mesh = robot.transform.Find("Robot2").GetComponent<SkinnedMeshRenderer>();
-                        mesh.SetMaterials(target.gameObject.GetComponent<MeshRenderer>().materials.ToList());
+                    robot.GetComponent<ColorShifter>().color = keyColor.color;
+                    GameObjectManager.addComponent<ColorShifted>(robot);
 
-                        MainLoop.instance.StartCoroutine(keyDestroy(target));
-
-
-                    }
+                    MainLoop.instance.StartCoroutine(keyDestroy(target));
 
                 }
             }

@@ -14,7 +14,10 @@ public class CurrentActionManager : FSystem
 	private Family f_ends = FamilyManager.getFamily(new AllOfComponents(typeof(NewEnd)));
 	private Family f_newStep = FamilyManager.getFamily(new AllOfComponents(typeof(NewStep)));
     private Family f_currentActions = FamilyManager.getFamily(new AllOfComponents(typeof(BasicAction),typeof(LibraryItemRef), typeof(CurrentAction)));
-	private Family f_player = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef),typeof(Position)), new AnyOfTags("Player"));
+    //private Family f_currentVariableActions = FamilyManager.getFamily(new AllOfComponents(typeof(VariableBasicAction), typeof(LibraryItemRef), typeof(CurrentAction)));
+
+
+    private Family f_player = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef),typeof(Position)), new AnyOfTags("Player"));
 	private Family f_conditionNotifs = FamilyManager.getFamily(new AnyOfTags("ConditionNotif"), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
 
 	private Family f_wall = FamilyManager.getFamily(new AllOfComponents(typeof(Position)), new AnyOfTags("Wall"));
@@ -49,8 +52,9 @@ public class CurrentActionManager : FSystem
 
 	private void initFirstsActions(GameObject go)
 	{
-		// init first action if no ends occur (possible for scripts with bad condition)
-		if (f_ends.Count <= 0)
+		Debug.Log("[Action Manager] initFirsts : ");
+        // init first action if no ends occur (possible for scripts with bad condition)
+        if (f_ends.Count <= 0)
 		{
 			// init currentAction on the first action of players
 			bool atLeastOneFirstAction = false;
@@ -71,15 +75,16 @@ public class CurrentActionManager : FSystem
 			}
 			else
 			{
-				// init currentAction on the first action of ennemies
-				bool forceNewStep = false;
+                // init currentAction on the first action of ennemies
+                Debug.Log("[Action Manager] initFirsts : else ");
+                bool forceNewStep = false;
 				foreach (GameObject drone in f_drone)
 					if (!drone.GetComponent<ScriptRef>().executableScript.GetComponentInChildren<CurrentAction>(true) && !drone.GetComponent<ScriptRef>().scriptFinished)
 						addCurrentActionOnFirstAction(drone);
 					else
 						forceNewStep = true; // will move currentAction on next action
 
-				if (forceNewStep)
+				if (forceNewStep) 
 					onNewStep();
 			}
 		}
@@ -89,7 +94,9 @@ public class CurrentActionManager : FSystem
 
 	private GameObject addCurrentActionOnFirstAction(GameObject agent)
     {
-		GameObject firstAction = null;
+        Debug.Log("[Action Manager] addCurrentActionOnFirstAction : ");
+
+        GameObject firstAction = null;
 		// try to get the first action
 		Transform container = agent.GetComponent<ScriptRef>().executableScript.transform;
 		if (container.childCount > 0)
@@ -107,7 +114,9 @@ public class CurrentActionManager : FSystem
 	// get first action inside "action"
 	private GameObject getFirstActionOf(GameObject action, GameObject agent)
     {
-		exploredScripItem = new HashSet<int>();
+        Debug.Log("[Action Manager] getFirstActionOf : ");
+
+        exploredScripItem = new HashSet<int>();
 		infiniteLoopDetected = false;
 		return rec_getFirstActionOf(action, agent);
 	}
@@ -115,7 +124,9 @@ public class CurrentActionManager : FSystem
 	// look for first action recursively, it could be control structure (if, for...)
 	private GameObject rec_getFirstActionOf(GameObject action, GameObject agent)
 	{
-		infiniteLoopDetected = exploredScripItem.Contains(action.GetInstanceID());
+        Debug.Log("[Action Manager] recGetFirstAc : ");
+
+        infiniteLoopDetected = exploredScripItem.Contains(action.GetInstanceID());
 		if (action == null || infiniteLoopDetected)
 			return null;
 		exploredScripItem.Add(action.GetInstanceID());
@@ -199,7 +210,10 @@ public class CurrentActionManager : FSystem
 	// Return true if "condition" is valid and false otherwise
 	private bool ifValid(List<ConditionItem> condition, GameObject agent)
 	{
-		string cond = "";
+        Debug.Log("[Action Manager] ifValid : ");
+
+
+        string cond = "";
 		for (int i = 0; i < condition.Count; i++)
 		{
 			if (condition[i].key == "(" || condition[i].key == ")" || condition[i].key == "OR" || condition[i].key == "AND" || condition[i].key == "NOT")
@@ -229,7 +243,10 @@ public class CurrentActionManager : FSystem
 	// return true if the captor is true, and false otherwise
 	private bool checkCaptor(ConditionItem ele, GameObject agent)
 	{
-		string key = ele.key;
+        Debug.Log("[Action Manager] chkCaptor : ");
+
+
+        string key = ele.key;
 		bool ifok = false;
 		// get absolute target position depending on player orientation and relative direction to observe
 		// On commence par identifier quelle case doit être regardée pour voir si la condition est respectée
@@ -352,16 +369,25 @@ public class CurrentActionManager : FSystem
 	// one step consists in removing the current actions this frame and adding new CurrentAction components next frame
 	private void onNewStep()
 	{
-		// hide all conditions notifications
-		foreach (GameObject notif in f_conditionNotifs)
+        Debug.Log("[Action Manager] onNewStep : ");
+
+        // hide all conditions notifications
+        foreach (GameObject notif in f_conditionNotifs)
 			GameObjectManager.setGameObjectState(notif, false);
 
 		GameObject nextAction;
+
 		foreach(GameObject currentActionGO in f_currentActions){
 			CurrentAction currentAction = currentActionGO.GetComponent<CurrentAction>();
-			nextAction = getNextAction(currentActionGO, currentAction.agent);
-			// check if we reach last action of a drone
-			if (nextAction == null && currentActionGO.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
+            
+			Debug.Log("[Action Manager] currentActionGO  = " + currentActionGO.name);
+
+            nextAction = getNextAction(currentActionGO, currentAction.agent);
+
+            Debug.Log("[Action Manager] next  = " + nextAction.name);
+
+            // check if we reach last action of a drone
+            if (nextAction == null && currentActionGO.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
 				currentActionGO.GetComponent<CurrentAction>().agent.GetComponent<ScriptRef>().scriptFinished = true;
 			else if (nextAction != null)
 			{
@@ -372,12 +398,47 @@ public class CurrentActionManager : FSystem
 				GameObjectManager.addComponent<NewEnd>(MainLoop.instance.gameObject, new { endType = NewEnd.InfiniteLoop });
 			GameObjectManager.removeComponent<CurrentAction>(currentActionGO);
 		}
+
+		/*if(!voided)
+		{
+			Debug.Log("[Action Manager] onNewSteps : voided ");
+
+            foreach (GameObject currentActionGO in f_currentVariableActions)
+            {
+                voided = true;
+                CurrentAction currentAction = currentActionGO.GetComponent<CurrentAction>();
+
+                Debug.Log("[Action Manager] currentActionGO voided  = " + currentActionGO.name);
+
+                nextAction = getNextAction(currentActionGO, currentAction.agent);
+
+                Debug.Log("[Action Manager] next voided   = " + nextAction.name);
+
+                // check if we reach last action of a drone
+                if (nextAction == null && currentActionGO.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
+                    currentActionGO.GetComponent<CurrentAction>().agent.GetComponent<ScriptRef>().scriptFinished = true;
+                else if (nextAction != null)
+                {
+                    //ask to add CurrentAction on next frame => this frame we will remove current CurrentActions
+                    MainLoop.instance.StartCoroutine(delayAddCurrentAction(nextAction, currentAction.agent));
+                }
+                else if (infiniteLoopDetected)
+                    GameObjectManager.addComponent<NewEnd>(MainLoop.instance.gameObject, new { endType = NewEnd.InfiniteLoop });
+                GameObjectManager.removeComponent<CurrentAction>(currentActionGO);
+            }
+        }*/
 	}
 
 	// return the next action to execute, return null if no next action available
 	private GameObject getNextAction(GameObject currentAction, GameObject agent){
-		BasicAction current_ba = currentAction.GetComponent<BasicAction>();
-		if (current_ba != null)
+
+        Debug.Log("[Action Manager] getNext : ");
+
+        BasicAction current_ba = currentAction.GetComponent<BasicAction>();
+
+        Debug.Log("[Action Manager] basic : " + current_ba.name);
+
+        if (current_ba != null)
 		{
 			// if next is not defined or is a BasicAction we return it
 			if(current_ba.next == null || current_ba.next.GetComponent<BasicAction>())
@@ -490,7 +551,14 @@ public class CurrentActionManager : FSystem
 
 	private IEnumerator delayAddCurrentAction(GameObject nextAction, GameObject agent)
 	{
-		yield return null; // we add new CurrentAction next frame otherwise families are not notified to this adding because at the begining of this frame GameObject already contains CurrentAction
+
+
+        Debug.Log("[Action Manager] addedDelayed  = " + nextAction.name + " " + agent.name);
+		/*foreach(GameObject comp in nextAction.gameObject.GetComponents<GameObject>())
+		{
+			Debug.Log(comp.name);
+		}*/
+        yield return null; // we add new CurrentAction next frame otherwise families are not notified to this adding because at the begining of this frame GameObject already contains CurrentAction
 		GameObjectManager.addComponent<CurrentAction>(nextAction, new { agent = agent });
 	}
 }

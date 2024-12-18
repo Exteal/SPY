@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7713261268060696586}
   m_Layer: 8
   m_Name: Colored Door
-  m_TagString: Untagged
+  m_TagString: ColoredDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
