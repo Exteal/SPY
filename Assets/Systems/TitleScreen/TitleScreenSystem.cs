@@ -711,10 +711,14 @@ public class TitleScreenSystem : FSystem {
 
 			Button button = button_go.GetComponentInChildren<Button>();
 			// lock/unlock levels
-			if ((userData.progression != null && userData.progression.ContainsKey(campaignKey) && userData.progression[campaignKey] >= i) || (userData.progression == null && PlayerPrefs.GetInt(campaignKey, 0) >= i) || i == 0) //by default first level of directory is the only unlocked level of directory
+
+			/*if ((userData.progression != null && userData.progression.ContainsKey(campaignKey) && userData.progression[campaignKey] >= i) || (userData.progression == null && PlayerPrefs.GetInt(campaignKey, 0) >= i) || i == 0) //by default first level of directory is the only unlocked level of directory
 				button.interactable = true;
 			else
 				button.interactable = false;
+			*/
+
+			button.interactable = true;
 
 			//scores
 			string highScoreKey = Utility.extractFileName(levelData.src);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Runtime.InteropServices;
+
 using System;
 using UnityEditor;
 using System.Drawing;
@@ -80,12 +81,14 @@ public class LevelGenerator : FSystem {
             case "red":
                 return Colored.Red;
 
-
             case "green":
                 return Colored.Green;
 
 			case "blue":
 				return Colored.Blue;
+
+			case "yellow":
+				return Colored.Yellow;
 
             default:
                 return Colored.RobotDefault;
@@ -93,22 +96,7 @@ public class LevelGenerator : FSystem {
         }
     }
 
-    private String stringColorToMaterialName(string color)
-	{
-		switch (color)
-		{
-			case "red":
-				return "Red";
-				
-
-			case "green":
-				return "Green";
-			
-			default:
-				return "Default";
-
-		}
-	}
+ 
 	// Read xml document and create all game objects
 	public void XmlToLevel(XmlDocument doc)
 	{
@@ -180,7 +168,10 @@ public class LevelGenerator : FSystem {
 				case "colored_key":
                     createKey(int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value), child.Attributes.GetNamedItem("color").Value);
                     break;
-				case "robot":
+				case "colored_keyblock":
+                    createKeyBlock(int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value), child.Attributes.GetNamedItem("color").Value);
+                    break;
+                case "robot":
 				case "guard":
 				case "player": // backward compatibility
 				case "enemy": // backward compatibility
@@ -467,8 +458,6 @@ public class LevelGenerator : FSystem {
         //var li = new List<Material>();
         //li.Add(m);
 
-        
-
         //key.GetComponent<MeshRenderer>().SetMaterials(li);
 
         key.GetComponent<Position>().x = gridX;
@@ -478,6 +467,30 @@ public class LevelGenerator : FSystem {
         GameObjectManager.addComponent<ColorShifter>(key, new { color = stringColorToColored(color_name) });
         GameObjectManager.addComponent<ColorShifted>(key);
     }
+
+    private void createKeyBlock(int gridX, int gridY, string color_name)
+    {
+		switch(stringColorToColored(color_name))
+		{
+			case Colored.Red:
+				break;
+			case Colored.Blue:
+				break;
+			default:
+				return;
+        }
+        
+		GameObject key = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/KeyBlock") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(90, 0, 0), LevelGO.transform);
+
+        key.GetComponent<Position>().x = gridX;
+        key.GetComponent<Position>().y = gridY;
+        GameObjectManager.bind(key);
+
+        GameObjectManager.addComponent<ColorShifter>(key, new { color = stringColorToColored(color_name) });
+        GameObjectManager.addComponent<ColorShifted>(key);
+    }
+
+
     private void createCell(int gridX, int gridY){
 		GameObject cell = GameObject.Instantiate<GameObject>(Resources.Load ("Prefabs/Cell") as GameObject, LevelGO.transform.position + new Vector3(gridY*3,0,gridX*3), Quaternion.Euler(0,0,0), LevelGO.transform);
 		GameObjectManager.bind(cell);

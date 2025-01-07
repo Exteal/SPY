@@ -23,6 +23,7 @@ TagManager:
   - Key
   - ColoredDoor
   - ColoredDoorInner
+  - KeyBlock
   layers:
   - Default
   - TransparentFX

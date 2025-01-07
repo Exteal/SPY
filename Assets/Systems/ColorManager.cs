@@ -3,32 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using FYFY;
 using FYFY_plugins.TriggerManager;
+using System.Linq;
 
 /*
  * Manages color changes for ColorShifters when a ColorShifted component is created
  */
 
 public class ColorManager : FSystem
-{
-    private Family f_changedRobotColor = FamilyManager.getFamily(new AllOfComponents(typeof(ColorShifted)), new AnyOfTags("Player"));
+{    
+    private Family f_changedRobotColorToValue = FamilyManager.getFamily(new AllOfComponents(typeof(ColorShiftedToValue)), new AnyOfTags("Player"));
+
+    private Family f_changedRobotColorToFirst = FamilyManager.getFamily(new AllOfComponents(typeof(ColorShiftedToFirst)), new AnyOfTags("Player"));
+
     private Family f_changedKeyColor = FamilyManager.getFamily(new AllOfComponents(typeof(ColorShifted)), new AnyOfTags("Key"));
     private Family f_changedDoorColor = FamilyManager.getFamily(new AllOfComponents(typeof(ColorShifted)), new AnyOfTags("ColoredDoor"));
+    private Family f_changedKeyBlockColor = FamilyManager.getFamily(new AllOfComponents(typeof(ColorShifted)), new AnyOfTags("KeyBlock"));
 
 
     protected override void onStart()
     {
-        f_changedRobotColor.addEntryCallback(onRobotColorChanged);
         f_changedDoorColor.addEntryCallback(onDoorColorChanged);
         f_changedKeyColor.addEntryCallback(onKeyColorChanged);
-      
+        f_changedKeyBlockColor.addEntryCallback(onKeyColorChanged);
+
+        f_changedRobotColorToFirst.addEntryCallback(onRobotColorChangedToFirst);
+        f_changedRobotColorToValue.addEntryCallback(onRobotColorChangedToValue);
+
+
     }
-    public void onRobotColorChanged(GameObject robot)
+    public void onRobotColorChangedToValue(GameObject robot)
+    {
+        Colored color = robot.GetComponent<ColorShiftedToValue>().color;
+
+        Debug.Log("Color changed to value : " + color.ToString());
+        robot.GetComponent<ColorShifter>().color = color;
+        displayNewRobotColor(robot);
+        GameObjectManager.removeComponent<ColorShiftedToValue>(robot);
+    }
+
+    public void onRobotColorChangedToFirst(GameObject robot)
+    {
+
+        Debug.Log("Color changed to first");
+        Colored color = robot.GetComponent<Camouflages>().disponibles.First();
+        robot.GetComponent<ColorShifter>().color = color;
+
+        displayNewRobotColor(robot);
+
+        GameObjectManager.removeComponent<ColorShiftedToFirst>(robot);
+
+    }
+
+    private void switchRobotColor(GameObject robot, Colored color)
     {
         SkinnedMeshRenderer mesh = robot.transform.Find("Robot2").GetComponent<SkinnedMeshRenderer>();
-        Colored color = robot.GetComponent<ColorShifter>().color;
-        mesh.SetMaterials(new List<Material> { GetMaterial(color) }) ;
-        
-        GameObjectManager.removeComponent<ColorShifted>(robot);
+        //Colored color = robot.GetComponent<ColorShifter>().color;
+        mesh.SetMaterials(new List<Material> { GetMaterial(color) });
+    }
+
+    private void displayNewRobotColor(GameObject robot)
+    {
+        SkinnedMeshRenderer mesh = robot.transform.Find("Robot2").GetComponent<SkinnedMeshRenderer>();
+        //Colored color = robot.GetComponent<ColorShifter>().color;
+        mesh.SetMaterials(new List<Material> { GetMaterial(robot.GetComponent<ColorShifter>().color) });
     }
 
     public void onKeyColorChanged(GameObject key)
@@ -42,7 +79,6 @@ public class ColorManager : FSystem
 
         GameObjectManager.removeComponent<ColorShifted>(key);
 
-
     }
 
     public void onDoorColorChanged(GameObject door)
@@ -53,7 +89,7 @@ public class ColorManager : FSystem
         
         door.transform.GetChild(0).GetComponent<MeshRenderer>().SetMaterials(li);
 
-        //GameObjectManager.removeComponent<ColorShifted>(door);
+        GameObjectManager.removeComponent<ColorShifted>(door);
     }
 
     public Material GetMaterial(Colored color)

@@ -1871,6 +1871,7 @@ GameObject:
   - component: {fileID: 176730054516014038}
   - component: {fileID: 6444491553609950384}
   - component: {fileID: -3983926286655830448}
+  - component: {fileID: 1086064133584772945}
   m_Layer: 0
   m_Name: Robot Kyle
   m_TagString: Player
@@ -2108,6 +2109,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 4
+--- !u!114 &1086064133584772945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5823726797354950846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accd6155baf20e14289bb85291f749a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disponibles: 
 --- !u!1 &6122943781904512377
 GameObject:
   m_ObjectHideFlags: 0

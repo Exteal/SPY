@@ -48,6 +48,11 @@ public class DragDropSystemBridge : MonoBehaviour
     {
         DragDropSystem.instance.onlyPositiveInteger(gameObject, newValue);
     }
+
+    public void onlyColor(string newValue)
+    {
+        DragDropSystem.instance.onlyColor(gameObject, newValue);
+    }
     public void setNextFocusedGameObject(GameObject go)
     {
         EventSystem.current.SetSelectedGameObject(go);

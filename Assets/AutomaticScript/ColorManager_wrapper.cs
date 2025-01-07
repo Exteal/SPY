@@ -8,9 +8,14 @@ public class ColorManager_wrapper : BaseWrapper
 		this.hideFlags = HideFlags.NotEditable;
 	}
 
-	public void onRobotColorChanged(UnityEngine.GameObject robot)
+	public void onRobotColorChangedToValue(UnityEngine.GameObject robot)
 	{
-		MainLoop.callAppropriateSystemMethod (system, "onRobotColorChanged", robot);
+		MainLoop.callAppropriateSystemMethod (system, "onRobotColorChangedToValue", robot);
+	}
+
+	public void onRobotColorChangedToFirst(UnityEngine.GameObject robot)
+	{
+		MainLoop.callAppropriateSystemMethod (system, "onRobotColorChangedToFirst", robot);
 	}
 
 	public void onKeyColorChanged(UnityEngine.GameObject key)

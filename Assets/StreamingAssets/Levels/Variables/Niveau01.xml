@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<level>
+  <map>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /> </line>
+    <line><cell value="1" /><cell value="2" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="3" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+  </map>
+  <dialogs>
+    <dialog text="[fr]Un nouveau type d'obstacle est apparu : des portes intelligentes.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+	  <dialog text="[fr]Elles sont entrainée à ne laisser passer que les personnes autorisées.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+	  <dialog text="[fr]Heuresement, Erty est venu équipé d'une technologie de camouflage pour tromper ce système.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+  </dialogs>
+  <blockLimits>
+    <blockLimit blockType="Forward" limit="-1" />
+    <!--<blockLimit blockType="Variable" limit="1" />
+    <blockLimit blockType="SetVariable" limit="1" />
+    <blockLimit blockType="UseVariable" limit="1" />-->
+    <blockLimit blockType="TurnLeft" limit="1" />
+    <blockLimit blockType="TurnRight" limit="1" />
+    <blockLimit blockType="Wait" limit="0" />
+    <blockLimit blockType="Activate" limit="0" />
+    <blockLimit blockType="TurnBack" limit="0" />
+    <blockLimit blockType="IfThen" limit="0" />
+    <blockLimit blockType="IfElse" limit="1" />
+    <blockLimit blockType="ForLoop" limit="0" />
+    <blockLimit blockType="While" limit="0" />
+    <blockLimit blockType="Forever" limit="0" />
+    <blockLimit blockType="AndOperator" limit="0" />
+    <blockLimit blockType="OrOperator" limit="0" />
+    <blockLimit blockType="NotOperator" limit="0" />
+    <blockLimit blockType="WallFront" limit="0" />
+    <blockLimit blockType="Enemy" limit="0" />
+    <blockLimit blockType="RedArea" limit="0" />
+    <blockLimit blockType="FieldGate" limit="0" />
+    <blockLimit blockType="Terminal" limit="0" />
+    <blockLimit blockType="Exit" limit="0" />
+	<blockLimit blockType="OpenColored" limit="1"/>
+	<blockLimit blockType="ColorShift" limit ="1" />
+	  
+  </blockLimits>
+	
+  
+  <robot inputLine="Erty" posY="1" posX="1" direction="0" />
+  
+  <colored_key posX ="2" posY="1" color="blue"/>
+  <colored_door posX="3" posY="1" direction="2" color="blue"/>
+ 
+	
+	<script outputLine="Erty" editMode="0">
+  </script>
+  <score twoStars="0" threeStars="1500"/>
+</level>

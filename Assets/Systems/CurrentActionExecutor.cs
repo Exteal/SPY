@@ -96,8 +96,14 @@ public class CurrentActionExecutor : FSystem {
 		
 		CurrentAction ca = currentAction.GetComponent<CurrentAction>();
 		
-		// process action depending on action type
-		switch (currentAction.GetComponent<BasicAction>().actionType){
+		Debug.Log("[Action Exec]  ca :" + ca.agent.name + " : " + ca.name);
+		var t = currentAction.GetComponent<BasicAction>().actionType;
+
+        Debug.Log("[Action Exec]  actiontype :" + t.ToString());
+
+
+        // process action depending on action type
+        switch (currentAction.GetComponent<BasicAction>().actionType){
 			case BasicAction.ActionType.Forward:
 				ApplyForward(ca.agent);
 				break;
@@ -126,34 +132,59 @@ public class CurrentActionExecutor : FSystem {
 				}
 				ca.agent.GetComponent<Animator>().SetTrigger("Action");
 				break;
+			
 			case BasicAction.ActionType.OpenColored:
-                Debug.Log("[Action Exec] opencolored : ");
-
                 Position agentP = ca.agent.GetComponent<Position>();
-
                 foreach (GameObject go in f_coloredDoors) {
 					var door = go.transform.Find("Door");
 
                     if (door != null && door.gameObject.activeInHierarchy)
 					{
-						Debug.Log("[Foreach Colored] : Opening Door = " + go.transform.Find("Door").gameObject);
-						Debug.Log(" Pos : " + go.GetComponentInChildren<Position>().x + " " + go.GetComponentInChildren<Position>().y);
-						Debug.Log("Colors : " + go.GetComponent<ColorShifter>().color + " " +  ca.agent.GetComponent<ColorShifter>().color);
-                        if (isInFront(agentP, go.GetComponentInChildren<Position>()) && go.GetComponent<ColorShifter>().color == ca.agent.GetComponent<ColorShifter>().color)
-                        {
-                            Debug.Log("[Foreach Colored] : Opening Door = " + go.transform.Find("Door").gameObject + "Pos : " + go.GetComponentInChildren<Position>().x + " " + go.GetComponentInChildren<Position>().y);
-
-                            go.GetComponent<AudioSource>().Play();
+						if (isInFront(agentP, go.GetComponentInChildren<Position>()) && go.GetComponent<ColorShifter>().color == ca.agent.GetComponent<ColorShifter>().color)
+						{
+							go.GetComponent<AudioSource>().Play();
                             go.GetComponent<Animator>().SetTrigger("Open");
-                            go.GetComponent<Animator>().speed = gameData.gameSpeed_current;
-
+							go.GetComponent<Animator>().speed = gameData.gameSpeed_current;
                         }
                     }
                     
                 }
-				break;	
-		}
-		ca.StopAllCoroutines();
+				break;
+
+            case BasicAction.ActionType.ColorShiftRed:
+                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent, new { color = Colored.Red });
+                break;
+
+            case BasicAction.ActionType.ColorShiftBlue:
+                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent, new { color = Colored.Blue });
+                break;
+
+            case BasicAction.ActionType.ColorShiftToValue:
+                Debug.Log("[Action Exec] Color Shift To Value : ");
+                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent);
+
+                break;
+
+           /* case BasicAction.ActionType.ColorShift:
+                Debug.Log("[Action Exec] Color Shift To first : ");
+                GameObjectManager.addComponent<ColorShiftedToFirst>(ca.agent);
+                break;
+		   */
+			case BasicAction.ActionType.ColorShiftVariable:
+                Debug.Log("[Action Exec] Color Shift Varaible : ");
+                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent);
+                break;
+
+
+			case BasicAction.ActionType.Test:
+                string color = ca.GetComponent<BasicAction>().variable;
+
+				
+                Debug.Log("[Action Exec] Test : color =  " + color );
+                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent, new { color = parseColor(color) });
+                break;
+        }
+        ca.StopAllCoroutines();
 		if (ca.gameObject.activeInHierarchy)
 			ca.StartCoroutine(Utility.pulseItem(ca.gameObject));
 		// notify agent moving
@@ -161,7 +192,22 @@ public class CurrentActionExecutor : FSystem {
 			GameObjectManager.addComponent<Moved>(ca.agent);
 	}
 
-	private bool isInFront(Position agentPos, Position doorPos)
+    private Colored parseColor(string color)
+    {
+        switch (color)
+        {
+            case "red":
+			case "rouge":
+                return Colored.Red;
+            case "blue":
+			case "bleu":
+                return Colored.Blue;
+            default:
+                return Colored.RobotDefault;
+        }
+    }
+
+    private bool isInFront(Position agentPos, Position doorPos)
 	{
 		return doorPos.x - 1 == agentPos.x && doorPos.y == agentPos.y
 			|| doorPos.x + 1 == agentPos.x && doorPos.y == agentPos.y

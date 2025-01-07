@@ -6,13 +6,15 @@
     <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
   </map>
   <dialogs>
-    <dialog text="[fr]Crée une variable nommée 'couleur' et ....[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+    <dialog text="[fr]Un nouveau type d'obstacle est apparu : des portes intelligentes.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+	  <dialog text="[fr]Elles sont entrainée à ne laisser passer que les personnes autorisées.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+	  <dialog text="[fr]Heuresement, Erty est venu équipé d'une technologie de camouflage pour tromper ce système.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
   </dialogs>
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
-    <blockLimit blockType="Variable" limit="1" />
+    <!--<blockLimit blockType="Variable" limit="1" />
     <blockLimit blockType="SetVariable" limit="1" />
-    <blockLimit blockType="UseVariable" limit="1" />
+    <blockLimit blockType="UseVariable" limit="1" />-->
     <blockLimit blockType="TurnLeft" limit="1" />
     <blockLimit blockType="TurnRight" limit="1" />
     <blockLimit blockType="Wait" limit="0" />
@@ -32,7 +34,9 @@
     <blockLimit blockType="FieldGate" limit="0" />
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
-	<blockLimit blockType="OpenColored" limit="2"/> 
+	<blockLimit blockType="OpenColored" limit="2"/>
+	<blockLimit blockType="ColorShift" limit ="3" />
+	  
   </blockLimits>
 	
   

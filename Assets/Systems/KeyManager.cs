@@ -31,6 +31,7 @@ public class KeyManager : FSystem
 
     }
 
+    // Colision with key and keyblocks
     private void onNewCollisionKey(GameObject robot)
     {
         
@@ -45,15 +46,43 @@ public class KeyManager : FSystem
                     
                     ColorShifter keyColor = target.GetComponent<ColorShifter>();
 
-                    robot.GetComponent<ColorShifter>().color = keyColor.color;
-                    GameObjectManager.addComponent<ColorShifted>(robot);
+                    if (!robot.GetComponent<Camouflages>().disponibles.Contains(keyColor.color)) 
+                        robot.GetComponent<Camouflages>().disponibles.Add(keyColor.color);
+                    //GameObjectManager.addComponent<ColorShifted>(robot);
 
                     MainLoop.instance.StartCoroutine(keyDestroy(target));
 
                 }
+
+                if(target.CompareTag("KeyBlock"))
+                {
+                    ColorShifter keyColor = target.GetComponent<ColorShifter>();
+
+                    if (!robot.GetComponent<Camouflages>().disponibles.Contains(keyColor.color))
+                        robot.GetComponent<Camouflages>().disponibles.Add(keyColor.color);
+
+                    switch(keyColor.color)
+                    {
+                        case Colored.Red:
+                            gameData.actionBlockLimit["ColorShiftRed"] = gameData.actionBlockLimit["ColorShiftRed"] + 1;
+                            break;
+
+                        case Colored.Blue:
+                            gameData.actionBlockLimit["ColorShiftBlue"] = gameData.actionBlockLimit["ColorShiftBlue"] + 1;
+                            break;
+                    }
+
+                    GameObjectManager.addComponent<BlockAdded>(gameData.gameObject);
+                
+                    MainLoop.instance.StartCoroutine(keyDestroy(target));
+                }
+
             }
         }
     }
+
+
+
 
 
     private IEnumerator keyDestroy(GameObject go)

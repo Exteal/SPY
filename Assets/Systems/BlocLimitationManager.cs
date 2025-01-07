@@ -14,6 +14,7 @@ public class BlocLimitationManager : FSystem
 	private Family f_draggableElement = FamilyManager.getFamily(new AllOfComponents(typeof(ElementToDrag)));
 	private Family f_resetBlocLimit = FamilyManager.getFamily(new AllOfComponents(typeof(ResetBlocLimit)));
 	private Family f_gameLoaded = FamilyManager.getFamily(new AllOfComponents(typeof(GameLoaded), typeof(MainLoop)));
+	private Family f_blockAdded = FamilyManager.getFamily(new AllOfComponents(typeof(BlockAdded)));
 
 	private GameData gameData;
 
@@ -42,7 +43,16 @@ public class BlocLimitationManager : FSystem
 			}
 		});
 
-		f_droppedActions.addEntryCallback(useAction);
+		f_blockAdded.addEntryCallback(delegate
+        {
+            // update limitation counters
+
+            foreach (GameObject go in f_draggableElement)
+                updateBlocLimit(go);
+			GameObjectManager.removeComponent<BlockAdded>(gameData.gameObject);
+        });
+
+        f_droppedActions.addEntryCallback(useAction);
 		f_deletedActions.addEntryCallback(unuseAction);
 	}
 

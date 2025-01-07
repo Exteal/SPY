@@ -7,6 +7,9 @@ using System.Linq;
 /// <summary>
 /// Manage collision between player agents and Coins
 /// </summary>
+/// 
+
+//TODO : Tooltips inconsistence in editor
 public class CoinManager : FSystem {
     private Family f_robotcollision = FamilyManager.getFamily(new AllOfComponents(typeof(Triggered3D)), new AnyOfTags("Player"));
 

@@ -331,7 +331,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 13138334633984
-    m_Localized: Ouvrir une porte coloree
+    m_Localized: Avancer
     m_Metadata:
       m_Items: []
   - m_Id: 13606830002176
@@ -351,7 +351,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 13817132404736
-    m_Localized: Attendre
+    m_Localized: Wait
     m_Metadata:
       m_Items: []
   - m_Id: 13879958884352
