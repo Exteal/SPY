@@ -1,0 +1,205 @@
+/* General body style */
+body {
+    background-color: rgba(60, 59, 59, 0.9); 
+    font-family: Arial, sans-serif;
+    color: cyan;
+    margin: 0;
+    padding: 0;
+}
+
+/* Fixed H1 Title */
+h1 {
+    text-align: center;
+    color: cyan;
+    font-size: 36px;
+    margin: 0;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 2px 5px rgba(0, 255, 255, 0.5);
+    z-index: 1000;
+    text-shadow: 0px 0px 10px cyan;
+}
+
+/* Left Panel (Players) */
+.left-panel {
+    width: 15%;
+    background-color: rgba(26, 33, 42, 0.8);
+    padding: 5px;
+    border-right: 2px solid cyan;
+    box-shadow: inset 0px 0px 10px rgba(0, 255, 255, 0.5);
+    position: fixed;
+    top: 60px; /* Leave space for the fixed title */
+    height: calc(100% - 60px); /* Adjust height for the title */
+    margin: 0;
+    left : 0;
+    /*scrollbar-width: thin;
+    scrollbar-color: cyan #0d0d0d;*/
+}
+
+.left-panel h2 {
+    text-align: center;
+    color: cyan;
+    border-bottom: 2px solid cyan;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+/* Player List Items */
+.player-item {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    width: 90%;
+    color: cyan;
+}
+
+.player-item:hover {
+    background-color: cyan;
+    color: black;
+    box-shadow: 0px 0px 15px cyan;
+}
+
+/* Right Panel (Details) */
+.right-panel {
+    margin-left: 15%; /* to leave space for fixed panel */
+    margin-top: 80px; /* Leave space for the fixed title */
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Detail Box */
+.detail-box {
+    margin-bottom: 20px;
+    background-color: rgba(146, 145, 145, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.8);
+    width: 90%;
+    text-align: center;
+}
+
+/* Scrollable List */
+.scrollable-list {
+    height: calc(100% - 20px);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scrollbar-width: thin;
+    scrollbar-color: cyan #0d0d0d;
+}
+
+.scrollable-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-list::-webkit-scrollbar-thumb {
+    background-color: cyan;
+    border-radius: 10px;
+}
+
+.scrollable-list::-webkit-scrollbar-track {
+    background-color: #0d0d0d;
+}
+
+/* Scenario List */
+.scenario-item {
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid cyan;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: cyan;
+    text-align: center;
+    box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.scenario-item-unplayed {
+    border-color: gray;
+    color: gray;
+    cursor: pointer;
+}
+
+.scenario-item-played {
+    border-color: cyan;
+    color: cyan;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.scenario-item-played:hover {
+    background-color: cyan;
+    color: black;
+    box-shadow: 0px 0px 15px cyan;
+}
+
+.scenario-item-unplayed:hover {
+    background-color: rgb(52, 62, 62);
+    color: black;
+    box-shadow: 0px 0px 15px cyan;
+}
+
+/* Level List */
+.level-item {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: rgba(38, 38, 38, 0.9);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.5);
+    transition: all 0.2s ease;
+}
+
+
+/* Played and Unplayed Levels */
+.level-item-played {
+    border-color: cyan;
+    color: cyan;
+    font-weight: bold;
+}
+
+.level-item-unplayed {
+    border-color: gray;
+    color: gray;
+}
+
+/* Level Details */
+.level-details {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.level-details span {
+    font-weight: bold;
+}
+
+/* Highlight selected player */
+.player-item.selected {
+    background-color: cyan;
+    color: black;
+    box-shadow: 0px 0px 15px cyan;
+    font-weight: bold;
+}
+
+/* Highlight selected scenario */
+.scenario-item.selected {
+    background-color: cyan;
+    color: black;
+    box-shadow: 0px 0px 15px cyan;
+    font-weight: bold;
+}
