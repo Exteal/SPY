@@ -11,5 +11,8 @@ public enum Colored
     Green,
     Blue,
     Yellow,
+    Orange,
+    Pink,
+    Purple,
     RobotDefault
 }

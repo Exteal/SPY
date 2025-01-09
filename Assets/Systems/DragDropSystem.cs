@@ -777,36 +777,28 @@ public class DragDropSystem : FSystem
 
 	public bool canParseColor(string color)
 	{
-		return color == "red" || color == "rouge"
-			|| color == "blue" || color == "bleu";
-	}
+		string demand = color.ToLower().Trim();
+		return demand == "red" || demand == "rouge"
+			|| demand == "blue" || demand == "bleu"
+			|| demand == "green" || demand == "vert"
+			|| demand == "yellow" || demand == "jaune"
+			|| demand == "orange"
+			|| demand == "purple" || demand == "violet"
+			|| demand == "pink" || demand == "rose";
+    }
 	
     public void onlyColor(GameObject block, string newValue)
     {
         string oldValue = block.GetComponent<BasicAction>().variable;
 
-		//Transform input = block.transform.Find("Header");
-
-		Debug.Log("onlyColor : input = " + newValue);
-
-        bool success = canParseColor(newValue);
-        if (success)
+        if (!canParseColor(newValue))
         {
-			Debug.Log("[DragDrop] onlyColor succes : " + newValue.ToString());
-        }
-        else
-        {
-            //input.GetComponentInChildren<TMP_InputField>().text = "Default";
-			Debug.Log("[DragDrop] onlyColor echec parse");
 			newValue = "Default";
         }
 
-       
         block.GetComponent<BasicAction>().variable = newValue;
-        // compute context
         string context = exportEditableScriptToString(block.GetComponentInParent<UIRootContainer>().transform, block);
 
-        // générer une trace seulement sur la scene principale
         if (newValue != oldValue && SceneManager.GetActiveScene().name == "MainScene")
         {
             GameObjectManager.addComponent<ActionPerformedForLRS>(block, new

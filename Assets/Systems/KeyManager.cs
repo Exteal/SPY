@@ -48,7 +48,6 @@ public class KeyManager : FSystem
 
                     if (!robot.GetComponent<Camouflages>().disponibles.Contains(keyColor.color)) 
                         robot.GetComponent<Camouflages>().disponibles.Add(keyColor.color);
-                    //GameObjectManager.addComponent<ColorShifted>(robot);
 
                     MainLoop.instance.StartCoroutine(keyDestroy(target));
 
@@ -80,9 +79,6 @@ public class KeyManager : FSystem
             }
         }
     }
-
-
-
 
 
     private IEnumerator keyDestroy(GameObject go)

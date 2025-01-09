@@ -33,15 +33,12 @@
 		</line>
 	</map>
 	<dialogs>
-		<dialog text="[fr]Un nouveau type d'obstacle est apparu : des portes intelligentes.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
-		<dialog text="[fr]Elles sont entrainée à ne laisser passer que les personnes autorisées.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
-		<dialog text="[fr]Heuresement, Erty est venu équipé d'une technologie de camouflage pour tromper ce système.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+		<dialog text="[fr]Cette méthode ne pourra cependant pas fonctionner en changeant le placement des portes.[/fr][en]This method won't work, however, by changing the placement of the doors.[/en]" />
+		<dialog text="[fr]Pour cela, Erty peut aussi stocker en mémoire les couleurs de camouflages ramassées pour les utiliser plus tard.[/fr][en]Erty can also store the camouflage colors it collects in memory for later use.[/en]" />
 	</dialogs>
 	<blockLimits>
 		<blockLimit blockType="Forward" limit="-1" />
-		<!--<blockLimit blockType="Variable" limit="1" />
-    <blockLimit blockType="SetVariable" limit="1" />
-    <blockLimit blockType="UseVariable" limit="1" />-->
+	
 		<blockLimit blockType="TurnLeft" limit="-1" />
 		<blockLimit blockType="TurnRight" limit="-1" />
 		<blockLimit blockType="Wait" limit="0" />

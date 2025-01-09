@@ -52,7 +52,6 @@ public class CurrentActionManager : FSystem
 
 	private void initFirstsActions(GameObject go)
 	{
-		Debug.Log("[Action Manager] initFirsts : ");
         // init first action if no ends occur (possible for scripts with bad condition)
         if (f_ends.Count <= 0)
 		{
@@ -93,7 +92,6 @@ public class CurrentActionManager : FSystem
 
 	private GameObject addCurrentActionOnFirstAction(GameObject agent)
     {
-        Debug.Log("[Action Manager] addCurrentActionOnFirstAction : ");
 
         GameObject firstAction = null;
 		// try to get the first action
@@ -113,7 +111,6 @@ public class CurrentActionManager : FSystem
 	// get first action inside "action"
 	private GameObject getFirstActionOf(GameObject action, GameObject agent)
     {
-        Debug.Log("[Action Manager] getFirstActionOf : ");
 
         exploredScripItem = new HashSet<int>();
 		infiniteLoopDetected = false;
@@ -123,7 +120,6 @@ public class CurrentActionManager : FSystem
 	// look for first action recursively, it could be control structure (if, for...)
 	private GameObject rec_getFirstActionOf(GameObject action, GameObject agent)
 	{
-        Debug.Log("[Action Manager] recGetFirstAc : ");
 
         infiniteLoopDetected = exploredScripItem.Contains(action.GetInstanceID());
 		if (action == null || infiniteLoopDetected)
@@ -363,8 +359,6 @@ public class CurrentActionManager : FSystem
 	// one step consists in removing the current actions this frame and adding new CurrentAction components next frame
 	private void onNewStep()
 	{
-        Debug.Log("[Action Manager] onNewStep : ");
-
         // hide all conditions notifications
         foreach (GameObject notif in f_conditionNotifs)
 			GameObjectManager.setGameObjectState(notif, false);
@@ -375,12 +369,7 @@ public class CurrentActionManager : FSystem
 		foreach(GameObject currentActionGO in f_currentActions){
 			CurrentAction currentAction = currentActionGO.GetComponent<CurrentAction>();
             
-			Debug.Log("[Action Manager] currentAction type  = " + currentActionGO.GetComponent<BasicAction>().actionType);
-
             nextAction = getNextAction(currentActionGO, currentAction.agent);
-
-            Debug.Log("[Action Manager] next action type = " + nextAction.GetComponent<BasicAction>().actionType);
-
             // check if we reach last action of a drone
             if (nextAction == null && currentActionGO.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
 				currentActionGO.GetComponent<CurrentAction>().agent.GetComponent<ScriptRef>().scriptFinished = true;
@@ -397,23 +386,13 @@ public class CurrentActionManager : FSystem
 
 	// return the next action to execute, return null if no next action available
 	private GameObject getNextAction(GameObject currentAction, GameObject agent){
-
-        Debug.Log("[Action Manager] getNextAction : ");
-
         BasicAction current_ba = currentAction.GetComponent<BasicAction>();
-
-        Debug.Log("[Action Manager] current basic : name = " + current_ba.name + " type = " + current_ba.actionType);
 
         if (current_ba != null)
 		{
 			// if next is not defined or is a BasicAction we return it
 			if(current_ba.next == null || current_ba.next.GetComponent<BasicAction>())
 			{
-				if(current_ba.next != null)
-				{
-                    Debug.Log("[Action Manager] next basic : name = " + current_ba.next.name + " type = " + current_ba.next.ToString());
-                }
-
                 return current_ba.next;
             }
                 
@@ -525,11 +504,6 @@ public class CurrentActionManager : FSystem
 
 	private IEnumerator delayAddCurrentAction(GameObject nextAction, GameObject agent)
 	{
-        Debug.Log("[Action Manager] addedDelayed  = " + nextAction.name + " " + nextAction.ToString() + " " + nextAction.GetComponent<BasicAction>().actionType);
-		/*foreach(GameObject comp in nextAction.gameObject.GetComponents<GameObject>())
-		{
-			Debug.Log(comp.name);
-		}*/
         yield return null; // we add new CurrentAction next frame otherwise families are not notified to this adding because at the begining of this frame GameObject already contains CurrentAction
 		GameObjectManager.addComponent<CurrentAction>(nextAction, new { agent = agent });
 	}

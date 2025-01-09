@@ -6,15 +6,13 @@
     <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
   </map>
   <dialogs>
-    <dialog text="[fr]Un nouveau type d'obstacle est apparu : des portes intelligentes.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
-	  <dialog text="[fr]Elles sont entrainée à ne laisser passer que les personnes autorisées.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
-	  <dialog text="[fr]Heuresement, Erty est venu équipé d'une technologie de camouflage pour tromper ce système.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+    <dialog text="[fr]Un nouveau type d'obstacle est apparu : des portes intelligentes.[/fr][en]A new type of obstacle has appeared: intelligent doors.[/en]" />
+	  <dialog text="[fr]Elles sont entrainée à ne laisser passer que les personnes autorisées.[/fr][en]They are trained to let only authorized people through.[/en]" />
+	  <dialog text="[fr]Heuresement, Erty est venu équipé d'une technologie de camouflage pour tromper ce système.[/fr][en]Fortunately, Erty came equipped with camouflage technology to fool this system.[/en]" />
   </dialogs>
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
-    <!--<blockLimit blockType="Variable" limit="1" />
-    <blockLimit blockType="SetVariable" limit="1" />
-    <blockLimit blockType="UseVariable" limit="1" />-->
+   
     <blockLimit blockType="TurnLeft" limit="1" />
     <blockLimit blockType="TurnRight" limit="1" />
     <blockLimit blockType="Wait" limit="0" />

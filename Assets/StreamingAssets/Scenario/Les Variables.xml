@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <scenario name="[fr]Variables[/fr][en]Variables[/en]" 
-            desc="[fr]Dans ce scénario, tu apprendras à utiliser un concept avancé, les variables, pour résoudre des défis plus complexes.[/fr][en]In this scenario, you'll learn to use advanced concepts like variables and functions to solve more complex challenges.[/en]">
+            desc="[fr]Dans ce scénario, tu apprendras à utiliser un concept avancé, les variables, qui peut t'aider à résoudre des défis complexes.[/fr][en]In this scenario, you'll learn to use advanced concepts like variables to solve complex challenges.[/en]">
 
     <level src="Levels/Variables/Niveau01.xml" name="[fr]Mission 1 - Variables[/fr][en]Mission 1 - Variables[/en]" />
     <level src="Levels/Variables/Niveau02.xml" name="[fr]Mission 2 - Variables[/fr][en]Mission 2 - Variables[/en]" />

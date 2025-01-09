@@ -34,8 +34,6 @@ public class ColorManager : FSystem
     public void onRobotColorChangedToValue(GameObject robot)
     {
         Colored color = robot.GetComponent<ColorShiftedToValue>().color;
-
-        Debug.Log("Color changed to value : " + color.ToString());
         robot.GetComponent<ColorShifter>().color = color;
         displayNewRobotColor(robot);
         GameObjectManager.removeComponent<ColorShiftedToValue>(robot);
@@ -43,8 +41,6 @@ public class ColorManager : FSystem
 
     public void onRobotColorChangedToFirst(GameObject robot)
     {
-
-        Debug.Log("Color changed to first");
         Colored color = robot.GetComponent<Camouflages>().disponibles.First();
         robot.GetComponent<ColorShifter>().color = color;
 
@@ -57,28 +53,23 @@ public class ColorManager : FSystem
     private void switchRobotColor(GameObject robot, Colored color)
     {
         SkinnedMeshRenderer mesh = robot.transform.Find("Robot2").GetComponent<SkinnedMeshRenderer>();
-        //Colored color = robot.GetComponent<ColorShifter>().color;
         mesh.SetMaterials(new List<Material> { GetMaterial(color) });
     }
 
     private void displayNewRobotColor(GameObject robot)
     {
         SkinnedMeshRenderer mesh = robot.transform.Find("Robot2").GetComponent<SkinnedMeshRenderer>();
-        //Colored color = robot.GetComponent<ColorShifter>().color;
         mesh.SetMaterials(new List<Material> { GetMaterial(robot.GetComponent<ColorShifter>().color) });
     }
 
     public void onKeyColorChanged(GameObject key)
     {
-        //Material m = Resources.Load<Material>("Materials/" + stringColorToMaterialName(color_name));
-
         Material m = GetMaterial(key.GetComponent<ColorShifter>().color);
         var li = new List<Material>();
         li.Add(m);
         key.GetComponent<MeshRenderer>().SetMaterials(li);
 
         GameObjectManager.removeComponent<ColorShifted>(key);
-
     }
 
     public void onDoorColorChanged(GameObject door)
@@ -108,6 +99,15 @@ public class ColorManager : FSystem
             case Colored.Blue:
                 return Resources.Load<Material>("Materials/Blue");
 
+            case Colored.Orange:
+                return Resources.Load<Material>("Materials/Orange");
+
+            case Colored.Pink:
+                return Resources.Load<Material>("Materials/Pink");
+
+            case Colored.Purple:
+                return Resources.Load<Material>("Materials/Purple");
+                
             case Colored.RobotDefault:
 
             default:

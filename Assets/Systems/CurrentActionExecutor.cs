@@ -96,12 +96,6 @@ public class CurrentActionExecutor : FSystem {
 		
 		CurrentAction ca = currentAction.GetComponent<CurrentAction>();
 		
-		Debug.Log("[Action Exec]  ca :" + ca.agent.name + " : " + ca.name);
-		var t = currentAction.GetComponent<BasicAction>().actionType;
-
-        Debug.Log("[Action Exec]  actiontype :" + t.ToString());
-
-
         // process action depending on action type
         switch (currentAction.GetComponent<BasicAction>().actionType){
 			case BasicAction.ActionType.Forward:
@@ -151,7 +145,7 @@ public class CurrentActionExecutor : FSystem {
                 }
 				break;
 
-            case BasicAction.ActionType.ColorShiftRed:
+			case BasicAction.ActionType.ColorShiftRed:
                 GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent, new { color = Colored.Red });
                 break;
 
@@ -159,28 +153,12 @@ public class CurrentActionExecutor : FSystem {
                 GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent, new { color = Colored.Blue });
                 break;
 
-            case BasicAction.ActionType.ColorShiftToValue:
-                Debug.Log("[Action Exec] Color Shift To Value : ");
-                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent);
-
-                break;
-
-           /* case BasicAction.ActionType.ColorShift:
-                Debug.Log("[Action Exec] Color Shift To first : ");
+            case BasicAction.ActionType.ColorShift:
                 GameObjectManager.addComponent<ColorShiftedToFirst>(ca.agent);
                 break;
-		   */
-			case BasicAction.ActionType.ColorShiftVariable:
-                Debug.Log("[Action Exec] Color Shift Varaible : ");
-                GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent);
-                break;
-
-
-			case BasicAction.ActionType.Test:
+		   
+			case BasicAction.ActionType.ColorChange:
                 string color = ca.GetComponent<BasicAction>().variable;
-
-				
-                Debug.Log("[Action Exec] Test : color =  " + color );
                 GameObjectManager.addComponent<ColorShiftedToValue>(ca.agent, new { color = parseColor(color) });
                 break;
         }
@@ -199,9 +177,33 @@ public class CurrentActionExecutor : FSystem {
             case "red":
 			case "rouge":
                 return Colored.Red;
+
             case "blue":
 			case "bleu":
                 return Colored.Blue;
+
+            case "green":
+            case "vert":
+                return Colored.Green;
+
+
+            case "yellow":
+            case "jaune":
+                return Colored.Yellow;
+
+            case "orange":
+                return Colored.Orange;
+
+            case "pink":
+            case "rose":
+                return Colored.Pink;
+
+            case "purple":
+            case "violet":
+                return Colored.Purple;
+
+
+            case "default":
             default:
                 return Colored.RobotDefault;
         }

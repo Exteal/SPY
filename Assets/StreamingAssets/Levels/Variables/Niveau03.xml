@@ -7,15 +7,12 @@
 	</line>
   </map>
   <dialogs>
-    <dialog text="[fr]Le robot Erty a besoin d'aide.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
-	  <dialog text="[fr]Il a du mal à distinguer les couleurs.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
-	  <dialog text="[fr]Aide le en lui précisant quelle couleur de camouflage prendre.[/fr][en]Create a variable called 'color' and use it to ....[/en]" />
+    <dialog text="[fr]Le robot Erty a besoin de ton aide.[/fr][en]The Erty robot needs your help.[/en]" />
+	  <dialog text="[fr]Ses capteurs sont endommagés, il ne peut plus distinguer les couleurs.[/fr][en]His sensors are damaged and he can no longer distinguish colors.[/en]" />
+	  <dialog text="[fr]Aide le en lui précisant quelle couleur de camouflage il doit prendre pour ouvrir les portes.[/fr][en]Help him by telling him what color camouflage to use to open the doors.[/en]" />
   </dialogs>
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
-    <!--<blockLimit blockType="Variable" limit="1" />
-    <blockLimit blockType="SetVariable" limit="1" />
-    <blockLimit blockType="UseVariable" limit="1" />-->
     <blockLimit blockType="TurnLeft" limit="1" />
     <blockLimit blockType="TurnRight" limit="1" />
     <blockLimit blockType="Wait" limit="0" />
@@ -36,9 +33,7 @@
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
 	<blockLimit blockType="OpenColored" limit="2"/>
-	<blockLimit blockType="ColorShiftVariable" limit ="3" />
-
-	<blockLimit blockType="Test" limit="-1" />
+	<blockLimit blockType="ColorChoice" limit="-1" />
 	  
 
   </blockLimits>

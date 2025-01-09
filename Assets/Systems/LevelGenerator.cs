@@ -90,6 +90,15 @@ public class LevelGenerator : FSystem {
 			case "yellow":
 				return Colored.Yellow;
 
+            case "orange":
+                return Colored.Orange;
+
+            case "pink":
+                return Colored.Pink;
+
+            case "purple":
+                return Colored.Purple;
+
             default:
                 return Colored.RobotDefault;
 
@@ -373,19 +382,6 @@ public class LevelGenerator : FSystem {
 	{
         GameObject door = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/Colored Door") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), LevelGO.transform);
 
-
-		
-
-        //Material m = Resources.Load<Material>("Materials/"+ stringColorToMaterialName(color_name));
-
-        //var li = new List<Material>();
-        //li.Add(m);
-
-
-
-
-        //door.transform.GetChild(0).GetComponent<MeshRenderer>().SetMaterials(li);
-
         door.GetComponentInChildren<Position>().x = gridX;
         door.GetComponentInChildren<Position>().y = gridY;
         door.GetComponentInChildren<Direction>().direction = orientation;
@@ -452,13 +448,6 @@ public class LevelGenerator : FSystem {
 	private void createKey(int gridX, int gridY, string color_name)
     {
         GameObject key = GameObject.Instantiate<GameObject>(Resources.Load("Prefabs/Key") as GameObject, LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(90, 0, 0), LevelGO.transform);
-
-        //Material m = Resources.Load<Material>("Materials/" + stringColorToMaterialName(color_name));
-
-        //var li = new List<Material>();
-        //li.Add(m);
-
-        //key.GetComponent<MeshRenderer>().SetMaterials(li);
 
         key.GetComponent<Position>().x = gridX;
         key.GetComponent<Position>().y = gridY;
