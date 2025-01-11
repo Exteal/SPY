@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <scenario name="[fr]Fonctions[/fr][en]Functions[/en]" 
-            desc="[fr]Dans ce scénario, tu apprendras à utiliser des concepts avancés comme les variables et les fonctions pour résoudre des défis plus complexes.[/fr][en]In this scenario, you'll learn to use advanced concepts like variables and functions to solve more complex challenges.[/en]">
+            desc="[fr]Dans ce scénario, tu apprendras à utiliser des concepts avancés comme les fonctions pour résoudre des défis plus complexes.[/fr][en]In this scenario, you'll learn to use advanced concepts like functions to solve more complex challenges.[/en]">
 
     <level src="Levels/Fonctions/Niveau01.xml" name="[fr]Mission01 - Functions[/fr][en]Mission01 - Functions[/en]" />
+    <level src="Levels/Fonctions/Niveau02.xml" name="[fr]Mission02 - Functions[/fr][en]Mission02 - Functions[/en]" />
+    <level src="Levels/Fonctions/Niveau03.xml" name="[fr]Mission03 - Functions[/fr][en]Mission03 - Functions[/en]" />
 
 </scenario>

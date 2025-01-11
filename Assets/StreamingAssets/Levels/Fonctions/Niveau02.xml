@@ -8,12 +8,12 @@
   <dialogs>
     <dialog text="[fr]Crée une fonction[/fr][en]Create a function[/en]" />
     <dialog text="[fr]Les fonctions vous permettent de regrouper des actions pour les réutiliser facilement.[/fr][en]Functions allow you to group actions together and reuse them easily.[/en]" />
-    <dialog text="[fr]Erty ne peut pas tourner à droite directement. Crée une fonction pour résoudre ce problème.[/fr][en]Erty can't turn right directly. Create a function to solve this issue.[/en]" />
-    <dialog text="[fr]Astuce : tourner à droite équivaut à tourner trois fois à gauche.[/fr][en]Hint: Turning right is equivalent to turning left three times.[/en]" />
-  </dialogs>
+    <dialog text="[fr]Erty est dans la mauvaise direction.[/fr][en]Erty is facing the wrong direction.[/en]" />
+    <dialog text="[fr]Pour commencer, assure-toi qu'Erty se tourne dans la bonne direction avant de continuer.[/fr][en]Make sure Erty turns in the correct direction before proceeding.[/en]" />
+    <dialog text="[fr]Rappelez-vous, vous pouvez appeler une fonction plusieurs fois pour simplifier votre programme.[/fr][en]Remember, you can call a function multiple times to simplify your program.[/en]" />  </dialogs>
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
-    <blockLimit blockType="Function" limit="1" />
+    <blockLimit blockType="Function" limit="-1" />
     <blockLimit blockType="FunctionInit" limit="1" />
     <blockLimit blockType="TurnLeft" limit="3" />
     <blockLimit blockType="TurnRight" limit="0" />
@@ -37,7 +37,7 @@
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
-  <robot inputLine="Erty" posY="2" posX="1" direction="0" />
+  <robot inputLine="Erty" posY="2" posX="1" direction="3" />
   <script outputLine="Erty" editMode="0">
   </script>
   <score twoStars="1500" threeStars="3500"/>
