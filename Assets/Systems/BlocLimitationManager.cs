@@ -87,6 +87,10 @@ public class BlocLimitationManager : FSystem
 				go.GetComponent<LibraryItemRef>().linkedTo = getLibraryItemByName("IfElse");
 			else if (go.GetComponent<IfControl>())
 				go.GetComponent<LibraryItemRef>().linkedTo = getLibraryItemByName("IfThen");
+			else if (go.GetComponent<Function>())
+				go.GetComponent<LibraryItemRef>().linkedTo = getLibraryItemByName("Function");
+			else if (go.GetComponent<FunctionInit>())
+				go.GetComponent<LibraryItemRef>().linkedTo = getLibraryItemByName("FunctionInit");		
 		}
 	}
 
@@ -98,9 +102,9 @@ public class BlocLimitationManager : FSystem
 		return null;
 	}
 
-	// Met à jour la limite du nombre de fois où l'on peut utiliser un bloc (si il y a une limite)
-	// Le désactive si la limite est atteinte
-	// Met à jour le compteur
+	// Met ï¿½ jour la limite du nombre de fois oï¿½ l'on peut utiliser un bloc (si il y a une limite)
+	// Le dï¿½sactive si la limite est atteinte
+	// Met ï¿½ jour le compteur
 	private void updateBlocLimit(GameObject draggableGO)
 	{
 		if (gameData.actionBlockLimit.ContainsKey(draggableGO.name))

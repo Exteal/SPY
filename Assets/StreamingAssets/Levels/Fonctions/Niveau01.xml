@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<level>
+  <map>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="3" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="2" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+  </map>
+  <dialogs>
+    <dialog text="[fr]Crée une fonction[/fr][en]Create a function[/en]" />
+    <dialog text="[fr]Les fonctions vous permettent de regrouper des actions pour les réutiliser facilement.[/fr][en]Functions allow you to group actions together and reuse them easily.[/en]" />
+    <dialog text="[fr]Vous devez créer une fonction qui représente un mouvement en forme de 'U' horizontal.[/fr][en]You need to create a function that represents a horizontal 'U' shape movement.[/en]" />
+    <dialog text="[fr]Indice : Allez tout droit. Si vous trouvez un chemin à droite, tournez à droite et appelez votre fonction 'U'. Si le chemin est à gauche, faites l'inverse.[/fr][en]Hint: Go forward. If you find a path on the right, turn right and call your 'U' function. Do the opposite for the left.[/en]" />
+  </dialogs>
+  <blockLimits>
+    <blockLimit blockType="Forward" limit="-1" />
+    <blockLimit blockType="Function" limit="-1" />
+    <blockLimit blockType="FunctionInit" limit="1" />
+    <blockLimit blockType="TurnLeft" limit="3" />
+    <blockLimit blockType="TurnRight" limit="2" />
+    <blockLimit blockType="Wait" limit="0" />
+    <blockLimit blockType="Activate" limit="0" />
+    <blockLimit blockType="TurnBack" limit="0" />
+    <blockLimit blockType="IfThen" limit="2" />
+    <blockLimit blockType="IfElse" limit="0" />
+    <blockLimit blockType="ForLoop" limit="0" />
+    <blockLimit blockType="While" limit="1" />
+    <blockLimit blockType="Forever" limit="1" />
+    <blockLimit blockType="AndOperator" limit="0" />
+    <blockLimit blockType="OrOperator" limit="0" />
+    <blockLimit blockType="NotOperator" limit="1" />
+    <blockLimit blockType="WallFront" limit="0" />
+    <blockLimit blockType="PathLeft" limit="1" />
+		<blockLimit blockType="PathRight" limit="1" />
+    <blockLimit blockType="Enemy" limit="0" />
+    <blockLimit blockType="RedArea" limit="0" />
+    <blockLimit blockType="FieldGate" limit="0" />
+    <blockLimit blockType="Terminal" limit="0" />
+    <blockLimit blockType="Exit" limit="1" />
+  </blockLimits>
+  <coin posY="2" posX="4" />
+  <robot inputLine="Erty" posY="9" posX="3" direction="0" />
+  <script outputLine="Erty" editMode="0">
+  </script>
+  <score twoStars="1500" threeStars="3500"/>
+</level>
+
+

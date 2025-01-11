@@ -197,13 +197,15 @@ GameObject:
   - component: {fileID: -5182257220759807850}
   - component: {fileID: 2900834206394558807}
   - component: {fileID: 8975173999718096042}
-  - component: {fileID: 2705636384479632924}
-  - component: {fileID: 5308914122993031288}
   - component: {fileID: 8881532605589861155}
   - component: {fileID: 4385729529893367979}
   - component: {fileID: 9132275227789319838}
+  - component: {fileID: 6972226627550720727}
+  - component: {fileID: 5015092698238084456}
+  - component: {fileID: 5094364606189778211}
+  - component: {fileID: 8175159934398426421}
   m_Layer: 5
-  m_Name: Control_Function
+  m_Name: Functions_init
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,9 +306,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 0.38880402, b: 0.38679236, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8156863, b: 0.4862745, a: 1}
-    m_PressedColor: {r: 0.7058824, g: 0.5372549, b: 0.23529412, a: 1}
-    m_SelectedColor: {r: 1, g: 0.8156863, b: 0.4862745, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.49121282, b: 0.48627448, a: 1}
+    m_PressedColor: {r: 0.99371064, g: 0.059372455, b: 0.27059376, a: 1}
+    m_SelectedColor: {r: 1, g: 0.48627448, b: 0.5321314, a: 1}
     m_DisabledColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -468,35 +470,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 1
---- !u!114 &2705636384479632924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589826222410828797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0bdb38fac021d4b95a6379b6c7ee9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightedColor: {r: 1, g: 1, b: 0, a: 1}
-  next: {fileID: 0}
-  firstChild: {fileID: 0}
---- !u!114 &5308914122993031288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589826222410828797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03048817cdae984f93f61100f43b22f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkedTo: {fileID: 0}
 --- !u!114 &8881532605589861155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +509,98 @@ MonoBehaviour:
   targets:
   - {fileID: 6458784915697038195}
   - {fileID: 2689569717925276025}
+--- !u!114 &6972226627550720727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589826222410828797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 2244456392528756738
+  references:
+    version: 2
+    RefIds:
+    - rid: 2244456392528756738
+      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
+        asm: Unity.Localization}
+      data:
+        m_Target: {fileID: -3822347777386372020}
+        m_TrackedProperties:
+          items:
+          - rid: 2244456392528756739
+        m_UpdateType: 0
+        m_Changed:
+          m_PersistentCalls:
+            m_Calls: []
+    - rid: 2244456392528756739
+      type: {class: LocalizedAssetProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_Localized:
+          rid: 2244456392528756740
+        m_PropertyPath: m_TargetGraphic
+    - rid: 2244456392528756740
+      type: {class: LocalizedObject, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:33b43660556a35d428066cce66d74575
+        m_TableEntryReference:
+          m_KeyId: 0
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+--- !u!114 &5015092698238084456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589826222410828797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8271fbef7525748a512c171b100bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 0.9622642, g: 0.57344043, b: 0.5416518, a: 1}
+--- !u!114 &5094364606189778211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589826222410828797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03048817cdae984f93f61100f43b22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedTo: {fileID: 0}
+--- !u!114 &8175159934398426421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589826222410828797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f88f5f87c95fb49ac8d96842cfa68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 0.9803922, g: 0.5372549, b: 0.4901961, a: 1}
+  next: {fileID: 0}
+  firstChild: {fileID: 0}
+  functionName: 
+  inExcecution: 0
+  functionBody: {fileID: 0}
 --- !u!1 &826004141106048123
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +770,7 @@ MonoBehaviour:
           m_TableReference:
             m_TableCollectionName: GUID:e8908b19f1057314e9d95e443e410429
           m_TableEntryReference:
-            m_KeyId: 27375123615744
+            m_KeyId: 195091018387705856
             m_Key: 
           m_FallbackState: 0
           m_WaitForCompletion: 0
@@ -776,7 +841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 53970cf3f815ce74d90dd4539d47fb98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76bdafb966826614cbfadfdfa63bb35f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

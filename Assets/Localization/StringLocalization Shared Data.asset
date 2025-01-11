@@ -1393,6 +1393,27 @@ MonoBehaviour:
       (TMP)
     m_Metadata:
       m_Items: []
+  - m_Id: 195081710967083008
+    m_Key: MainScene/MainCanvas/LeftPanel/LibraryScrollView/Viewport/LibraryPanel/BlocFunctions/FunctionsPanel/FunctionInit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195081990500667392
+    m_Key: Functions_init/Canvas (Environment)/Functions_init/Header/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195082221069946880
+    m_Key: MainScene/MainCanvas/LeftPanel/LibraryScrollView/Viewport/LibraryPanel/BlocFunctions/FunctionsPanel/Function
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195082387793530880
+    m_Key: MainScene/MainCanvas/LeftPanel/LibraryScrollView/Viewport/LibraryPanel/BlocFunctions/ActionPanelName/Text
+      (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195091018387705856
+    m_Key: Functions_init/Canvas/Functions_init/Header/Text (TMP)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

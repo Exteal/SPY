@@ -1333,6 +1333,26 @@ MonoBehaviour:
     m_Localized: Credits
     m_Metadata:
       m_Items: []
+  - m_Id: 195081710967083008
+    m_Localized: Init function
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195081990500667392
+    m_Localized: Function
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195082221069946880
+    m_Localized: Call function
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195082387793530880
+    m_Localized: Functions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 195091018387705856
+    m_Localized: Function
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

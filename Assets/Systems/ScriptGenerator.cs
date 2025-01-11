@@ -12,7 +12,7 @@ public class ScriptGenerator : FSystem {
 
 	public static ScriptGenerator instance;
 
-	private Family f_drone = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef)), new AnyOfTags("Drone")); // On récupére les agents pouvant être édités
+	private Family f_drone = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef)), new AnyOfTags("Drone")); // On rï¿½cupï¿½re les agents pouvant ï¿½tre ï¿½ditï¿½s
 	private Family f_draggableElement = FamilyManager.getFamily(new AnyOfComponents(typeof(ElementToDrag)));
 	private Family f_decodeXMLScript = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptToLoad)));
 	private Family f_ScriptEditorCanvas = FamilyManager.getFamily(new AnyOfTags("ScriptEditorCanvas"), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
@@ -52,7 +52,7 @@ public class ScriptGenerator : FSystem {
         }
     }
 
-    // Lit le XML d'un script est génère les game objects des instructions
+    // Lit le XML d'un script est gï¿½nï¿½re les game objects des instructions
     private void readXMLScript(XmlNode scriptNode, string name, UIRootContainer.EditMode editMode, UIRootContainer.SolutionType type)
 	{
 		if (scriptNode != null)
@@ -60,7 +60,7 @@ public class ScriptGenerator : FSystem {
 			// Look for another script with the same name. If one already exists, we don't create one more.
 			if (!scriptNameUsed.Contains(name))
 			{
-				// Rechercher un drone associé à ce script
+				// Rechercher un drone associï¿½ ï¿½ ce script
 				bool droneFound = false;
 				foreach (GameObject drone in f_drone)
 				{
@@ -115,7 +115,7 @@ public class ScriptGenerator : FSystem {
 			Utility.addItemOnDropArea(readXMLInstruction(eleNode), emptySlot);
 	}
 
-	// Transforme le noeud d'action XML en gameObject élément/opérator
+	// Transforme le noeud d'action XML en gameObject ï¿½lï¿½ment/opï¿½rator
 	private GameObject readXMLCondition(XmlNode conditionNode)
 	{
 		GameObject obj = null;
@@ -222,7 +222,7 @@ public class ScriptGenerator : FSystem {
 				conditionContainer = obj.transform.Find("ConditionContainer");
 				firstContainerBloc = obj.transform.Find("Container");
 
-				// On ajoute les éléments enfants dans les bons containers
+				// On ajoute les ï¿½lï¿½ments enfants dans les bons containers
 				foreach (XmlNode containerNode in actionNode.ChildNodes)
 				{
 					// Ajout des conditions
@@ -252,7 +252,7 @@ public class ScriptGenerator : FSystem {
 				firstContainerBloc = obj.transform.Find("Container");
 				secondContainerBloc = obj.transform.Find("ElseContainer");
 
-				// On ajoute les éléments enfants dans les bons containers
+				// On ajoute les ï¿½lï¿½ments enfants dans les bons containers
 				foreach (XmlNode containerNode in actionNode.ChildNodes)
 				{
 					// Ajout des conditions
@@ -298,7 +298,7 @@ public class ScriptGenerator : FSystem {
 				firstContainerBloc = obj.transform.Find("Container");
 				conditionContainer = obj.transform.Find("ConditionContainer");
 
-				// On ajoute les éléments enfants dans les bons containers
+				// On ajoute les ï¿½lï¿½ments enfants dans les bons containers
 				foreach (XmlNode containerNode in actionNode.ChildNodes)
 				{
 					// Ajout des conditions
@@ -331,6 +331,18 @@ public class ScriptGenerator : FSystem {
 				break;
 			case "action":
 				obj = Utility.createEditableBlockFromLibrary(getLibraryItemByName(actionNode.Attributes.GetNamedItem("type").Value), mainCanvas);
+				break;
+
+			case "functionInit":
+				obj = Utility.createEditableBlockFromLibrary(getLibraryItemByName("FunctionInit"), mainCanvas);
+				firstContainerBloc = obj.transform.Find("Container");
+				if (actionNode.HasChildNodes)
+					processXMLInstruction(firstContainerBloc, actionNode);
+				break;
+
+			case "function":
+				obj = Utility.createEditableBlockFromLibrary(getLibraryItemByName("Function"), mainCanvas);
+				
 				break;
 		}
 

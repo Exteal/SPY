@@ -33,6 +33,7 @@ public class CurrentActionManager : FSystem
 	private bool infiniteLoopDetected;
 
 	public static CurrentActionManager instance;
+	private Stack<GameObject> functionCallStack = new Stack<GameObject>();
 
 	public CurrentActionManager()
 	{
@@ -124,7 +125,8 @@ public class CurrentActionManager : FSystem
         infiniteLoopDetected = exploredScripItem.Contains(action.GetInstanceID());
 		if (action == null || infiniteLoopDetected)
 			return null;
-		exploredScripItem.Add(action.GetInstanceID());
+		if(! action.GetComponent<FunctionInit>()){
+			exploredScripItem.Add(action.GetInstanceID());}
 		if (action.GetComponent<BasicAction>())
 			return action;
 		else
@@ -188,18 +190,56 @@ public class CurrentActionManager : FSystem
 				return rec_getFirstActionOf(action.GetComponent<ForeverControl>().firstChild, agent);
 			}
 
-			//check if action is a FunctionControl
-			else if(action.GetComponent<FunctionControl>())
+			//check if action is a Function
+			else if (action.GetComponent<Function>())
 			{
-                FunctionControl funCont = action.GetComponent<FunctionControl>();
+				Debug.Log("In Function");
+				// Récupère la définition de la fonction associée et exécute le corps de cette fonction
+				Function func = action.GetComponent<Function>();
 
-				string funName = funCont.name;
-				
+				// Recherche la définition correspondante de FunctionInit dans tous les GameObjects
+				foreach (GameObject functionDef in GameObject.FindObjectsOfType<GameObject>())
+				{
+					FunctionInit funcInit = functionDef.GetComponent<FunctionInit>();
+					if (funcInit != null)
+					{
+						// Trouve la définition de la fonction et commence à exécuter le corps
+						functionCallStack.Push(action.GetComponent<BaseElement>().next); // Empile la référence pour continuer après l'appel
+						return rec_getFirstActionOf(funcInit.functionBody, agent);
+					}
+				}
+			}
 
-				//return rec_getFirstActionOf(funCont.firstChild, agent);
-				return null;
-            }
-        }
+			else if (action.GetComponent<FunctionInit>())
+			{
+				Debug.Log("In Function init");
+				FunctionInit funcInit = action.GetComponent<FunctionInit>();
+
+				// Vérifie si le corps de la fonction (functionBody) est défini
+				if (funcInit.functionBody == null)
+				{
+					// Si le corps n'est pas défini, stocke l'action actuelle comme corps de la fonction
+					funcInit.functionBody = action;
+					return rec_getFirstActionOf(funcInit.next, agent);
+				}
+				else
+				{
+					// Gestion de l'exécution de la fonction
+					if (funcInit.inExcecution == false)
+					{
+						// Début de l'exécution : marque la fonction comme en cours et exécute la première action du corps
+						funcInit.inExcecution = true;
+						return rec_getFirstActionOf(funcInit.firstChild, agent);
+					}
+					else
+					{
+						// Fin de l'exécution : marque la fonction comme terminée et reprend l'exécution après l'appel
+						funcInit.inExcecution = false;
+						return rec_getFirstActionOf(functionCallStack.Pop(), agent); // Dépile pour continuer là où la fonction a été appelée
+					}
+				}
+			}
+		}
 		return null;
 	}
 
@@ -239,7 +279,7 @@ public class CurrentActionManager : FSystem
         string key = ele.key;
 		bool ifok = false;
 		// get absolute target position depending on player orientation and relative direction to observe
-		// On commence par identifier quelle case doit �tre regard�e pour voir si la condition est respect�e
+		// On commence par identifier quelle case doit �tre regard�e pour voir si la condition est respect�e
 		Vector2 vec = new Vector2();
 		switch (agent.GetComponent<Direction>().direction)
 		{
@@ -348,7 +388,7 @@ public class CurrentActionManager : FSystem
 				}
 				break;
 		}
-		// notification de l'�valuation 
+		// notification de l'�valuation 
 		GameObject notif = ele.target.transform.Find(ifok ? "true" : "false").gameObject;
 		GameObjectManager.setGameObjectState(notif, true);
 		MainLoop.instance.StartCoroutine(Utility.pulseItem(notif));
