@@ -13,7 +13,7 @@
     <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="2" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
   </map>
   <dialogs>
-    <dialog text="[fr]Crée une fonction[/fr][en]Create a function[/en]" />
+    <dialog text="[fr]Crée une fonction.[/fr][en]Create a function.[/en]" />
     <dialog text="[fr]Les fonctions vous permettent de regrouper des actions pour les réutiliser facilement.[/fr][en]Functions allow you to group actions together and reuse them easily.[/en]" />
     <dialog text="[fr]Vous devez créer une fonction qui représente un mouvement en forme de 'U' horizontal.[/fr][en]You need to create a function that represents a horizontal 'U' shape movement.[/en]" />
     <dialog text="[fr]Indice : Allez tout droit. Si vous trouvez un chemin à droite, tournez à droite et appelez votre fonction 'U'. Si le chemin est à gauche, faites l'inverse.[/fr][en]Hint: Go forward. If you find a path on the right, turn right and call your 'U' function. Do the opposite for the left.[/en]" />
