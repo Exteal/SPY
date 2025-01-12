@@ -1,3 +1,7 @@
+# Rendu :
+
+Contenu dans le dossier rendu
+
 # SPY
 
 SPY is a learning game focused on CT. The game principle is to select from a list of actions, those that will allow a robot to get out of a maze. These actions are represented as blocks and the player has to build a sequence of actions that will be sent to the robot for execution.
